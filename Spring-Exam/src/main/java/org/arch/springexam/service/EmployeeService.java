@@ -48,6 +48,10 @@ public class EmployeeService {
         return result;
     }
 
+    public List<Employee> findAllByRole(String role) {
+        return employeeDAO.findAllByRole(role);
+    }
+    
     public void deleteSkillService(int skillId) {
         employeeDAO.deleteSkill(skillId);
     }
