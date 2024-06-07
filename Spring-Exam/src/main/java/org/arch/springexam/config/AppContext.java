@@ -20,8 +20,8 @@ import java.util.Properties;
 @Configuration
 @PropertySource({"classpath:database.properties"})
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "org.arch.springexam.repository")
-@ComponentScan(basePackages = {"org.arch.springexam.controller",  "org.arch.springexam.config"})
+@EnableJpaRepositories(basePackages = "org.arch.springexam.dao")
+@ComponentScan(basePackages = {"org.arch.springexam.controller", "org.arch.springexam.service", "org.arch.springexam.config"})
 public class AppContext {
     @Autowired
     private Environment environment;
