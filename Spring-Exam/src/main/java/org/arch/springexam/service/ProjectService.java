@@ -6,9 +6,14 @@ import org.arch.springexam.dao.ProjectDAO;
 import org.arch.springexam.dao.jpa.ProjectDAOJPA;
 import org.arch.springexam.entity.EmployeeProject;
 import org.arch.springexam.entity.Project;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+@Service
+@Transactional
 public class ProjectService {
     ProjectDAO projectDAO;
 
