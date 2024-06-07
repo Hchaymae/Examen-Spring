@@ -7,9 +7,13 @@ import org.arch.springexam.dao.jpa.EmployeeDAOJPA;
 import org.arch.springexam.entity.Employee;
 import org.arch.springexam.entity.EmployeeProjectId;
 import org.arch.springexam.entity.EmployeeSkill;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class EmployeeService {
     private EmployeeDAO employeeDAO;
     private Employee employee;
