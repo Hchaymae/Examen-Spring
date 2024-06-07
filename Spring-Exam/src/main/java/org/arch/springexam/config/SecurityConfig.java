@@ -19,9 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.antMatchers("/affectation.jsp").hasRole("Manager");
-                    registry.antMatchers("/listemployee.html").hasRole("Manager");
-                    registry.antMatchers("/listemployee.html").hasRole("Manager");
+                    registry.antMatchers("/affectation.jsp","/listemployee.html").hasRole("Manager");
+                    registry.antMatchers("/listemployee.html").hasRole("TECH_LEAD");
+
                     registry.requestMatchers().permitAll();
                     registry.anyRequest().authenticated();
                 })
