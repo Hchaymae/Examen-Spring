@@ -35,8 +35,4 @@ public class ProjectController {
         return projectService.findProjectByIdService(id);
     }
 
-    @GetMapping("/employee/{employeeId}")
-    public List<Project> findAllProjectsByEmployee(@PathVariable int employeeId) {
-        return projectService.findAllProjectsEmployeesService(employeeId);
-    }
 }

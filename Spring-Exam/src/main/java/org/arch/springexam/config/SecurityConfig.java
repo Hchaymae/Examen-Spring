@@ -21,6 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests(registry -> {
                     registry.antMatchers("/affectation.jsp","/listemployee.html").hasRole("Manager");
                     registry.antMatchers("/listemployee.html").hasRole("TECH_LEAD");
+                    registry.antMatchers("/api/**").hasRole("TEST");
 
                     registry.requestMatchers().permitAll();
                     registry.anyRequest().authenticated();
