@@ -5,6 +5,7 @@ import org.arch.springexam.entity.EmployeeProjectId;
 import org.arch.springexam.entity.EmployeeSkill;
 import org.arch.springexam.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,13 @@ public class EmployeeController {
     @PostMapping
     public int addEmployee(@RequestBody Employee employee) {
         return employeeService.addEmployeeService(employee);
+    }
+
+    @GetMapping("/affectation")
+    public String showAffectationPage(Model model) {
+        List<Employee> employees = employeeService.findAllService();
+        model.addAttribute("employees", employees);
+        return "affectation";
     }
 
     @GetMapping

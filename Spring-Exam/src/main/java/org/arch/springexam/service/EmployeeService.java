@@ -70,6 +70,10 @@ public class EmployeeService {
         return result;
     }
 
+
+    public List<Employee> findAllByRole(String role) {
+        return employeeDAO.findAllByRole(role);
+    }
     public int findEmployeeIdByNameService(String name) {
         return employeeDAO.findEmployeeIdByName(name);
     }
