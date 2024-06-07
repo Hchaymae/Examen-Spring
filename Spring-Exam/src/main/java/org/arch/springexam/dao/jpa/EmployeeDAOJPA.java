@@ -146,6 +146,12 @@ public class EmployeeDAOJPA implements EmployeeDAO {
         }
     }
 
+    public List<Employee> findAllByRole(String role) {
+        return entityManager.createQuery("SELECT e FROM Employee e WHERE e.post = :role", Employee.class)
+                .setParameter("role", role)
+                .getResultList();
+    }
+
     @Override
     public int deleteProject(EmployeeProjectId id) {
         try {
