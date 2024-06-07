@@ -9,6 +9,7 @@
     <title>Affectation</title>
 </head>
 <body>
+<sec:authorize access="hasRole('Manager')">
 <form>
     <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh; width:auto;">
         <div class="d-flex flex-column align-items-center">
@@ -55,5 +56,7 @@
         </div>
     </div>
 </form>
+</sec:authorize>
+
 </body>
 </html>

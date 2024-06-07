@@ -1,70 +1,55 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
     <title>Liste of Employees</title>
-</h:head>
+</head>
+<body>
+<div sec:authorize="hasRole('Manager') or hasRole('TechLead')">
 
-<h:body>
-    <div class="container text-center">
-        <div class="row justify-content-center">
-            <div class="col-12 border border-primary rounded p-3">
-                <div>
-                    <h:outputText class="h1" value="Employee List"/>
-                </div>
-                <br/>
-                <div class="container">
-                    <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger" warnClass="alert alert-warning"    style="list-style: none" />
-                </div>
-                <hr/><br/>
-                <h:form>
-                    <div>
-                        <h:outputLink style="text-decoration: none; color:cornflowerblue;" value="addEmployee.xhtml">Add Employee</h:outputLink>
-                        <h:outputText value=" | " escape="false" />
-                        <h:outputLink style="text-decoration: none; color:cornflowerblue;" value="affectation.xhtml">Back To Home</h:outputLink>
-                    </div>
-                    <h:dataTable id="employeeTable" var="employee" value="#{appBean.employeesList}"  styleClass="table table-striped" style="width:100%!important;">
-                        <h:column class="w-15">
-                            <f:facet  name="header">Id</f:facet>
-                            <h:outputText value="#{employee.id}" />
-                        </h:column>
-                        <h:column class="w-20">
-                            <f:facet  name="header">Name</f:facet>
-                            <h:outputText  value="#{employee.name}"/>
-                        </h:column>
-                        <h:column class="w-20">
-                            <f:facet  name="header">Email</f:facet>
-                            <h:outputText value="#{employee.email}" />
-                        </h:column>
-                        <h:column class="w-20">
-                            <f:facet  name="header">Post</f:facet>
-                            <h:outputText value="#{employee.post.name()}" />
-                        </h:column>
-                        <h:column class="w-20">
-                            <f:facet name="header">Skill</f:facet>
-                            <ui:repeat value="#{employee.skills}" var="skill">
-                                <h:outputText value="#{skill.skill}"/><br/>
-                            </ui:repeat><br/>
-                        </h:column>
-                        <h:column class="w-25">
-                            <f:facet name="header">Projects</f:facet>
-                            <ui:repeat value="#{employee.employeeProjects}" var="project">
-                                <h:outputText value="#{project.project.name}  (#{project.charge} %)"/><br/>
-                            </ui:repeat><br/>
-                        </h:column>
-                        <h:column class="w-25">
-                            <f:facet name="header">Action</f:facet>
-                            <h:commandButton value="Remove" action="#{appBean.delete(employee.id)}" type="submit" class="btn btn-danger text-center"/>
-                        </h:column>
-                    </h:dataTable>
-
-                </h:form>
+<div class="container text-center">
+    <div class="row justify-content-center">
+        <div class="col-12 border border-primary rounded p-3">
+            <div>
+                <h1 th:text="${'Employee List'}"></h1>
             </div>
+            <br/>
+            <hr/><br/>
+            <form th:action="@{/employees}" method="post">
+                <div>
+                    <a th:href="@{/addEmployee}">Add Employee</a>
+                    <span> | </span>
+                    <a th:href="@{/affectation}">Back To Home</a>
+                </div>
+                <table class="table table-striped" style="width:100%!important;">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Post</th>
+                        <th>Skill</th>
+                        <th>Projects</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr th:each="employee : ${employeesList}">
+                        <td th:text="${employee.id}"></td>
+                        <td th:text="${employee.name}"></td>
+                        <td th:text="${employee.email}"></td>
+                        <td th:text="${employee.post.name()}"></td>
+                        <td>
+                            <span th:each="skill : ${employee.skills}" th:text="${skill.skill}"></span>
+                        </td>
+                        <td>
+                            <span th:each="project : ${employee.employeeProjects}" th:text="${project.project.name} + ' (' + ${project.charge} + '%)'"></span>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger text-center" th:onclick="'window.location.href=\'/delete/' + ${employee.id} + '\''">Remove</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </div>
-</h:body>
+</div>
+</div>
+</body>
 </html>
