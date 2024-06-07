@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <title>Liste of Employees</title>
 </head>
 <body>
 <div sec:authorize="hasRole('Manager') or hasRole('TechLead')">
 
-<div class="container text-center">
-    <div class="row justify-content-center">
-        <div class="col-12 border border-primary rounded p-3">
-            <div>
-                <h1 th:text="${'Employee List'}"></h1>
-            </div>
-            <br/>
-            <hr/><br/>
-            <form th:action="@{/employees}" method="post">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-12 border border-primary rounded p-3">
+                <div>
+                    <h1 th:text="${'Employee List'}"></h1>
+                </div>
+                <br/>
+                <hr/><br/>
                 <div>
                     <a th:href="@{/addEmployee}">Add Employee</a>
                     <span> | </span>
@@ -42,14 +42,16 @@
                             <span th:each="project : ${employee.employeeProjects}" th:text="${project.project.name} + ' (' + ${project.charge} + '%)'"></span>
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-danger text-center" th:onclick="'window.location.href=\'/delete/' + ${employee.id} + '\''">Remove</button>
+                            <form th:action="@{'/employees/' + ${employee.id}}" method="post">
+                                <input type="hidden" name="_method" value="delete" />
+                                <button type="submit" class="btn btn-danger text-center">Remove</button>
+                            </form>
                         </td>
                     </tr>
                 </table>
-            </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>
